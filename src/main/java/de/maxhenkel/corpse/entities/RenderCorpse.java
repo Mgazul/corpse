@@ -48,17 +48,8 @@ public class RenderCorpse extends Render<EntityCorpse> {
         GlStateManager.rotate(90, 1F, 0F, 0F);
         GlStateManager.translate(0D, -0.5D, -2D / 16D);
 
-        if (entity.getCorpseAge() >= 20 * 60 * 60) {
-            bindTexture(SKELETON_TEXTURE);
-            modelSkeleton.render(entity, 0F, 0F, 0F, 0F, 0F, 0.0625F);
-        } else {
-            bindTexture(getEntityTexture(entity));
-            if (isSlim(entity.getCorpseUUID())) {
-                modelPlayerSlim.render(entity, 0F, 0F, 0F, 0F, 0F, 0.0625F);
-            } else {
-                modelPlayer.render(entity, 0F, 0F, 0F, 0F, 0F, 0.0625F);
-            }
-        }
+        bindTexture(SKELETON_TEXTURE);
+        modelSkeleton.render(entity, 0F, 0F, 0F, 0F, 0F, 0.0625F);
         GlStateManager.popMatrix();
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }

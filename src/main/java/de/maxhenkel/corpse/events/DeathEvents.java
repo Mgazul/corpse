@@ -1,5 +1,6 @@
 package de.maxhenkel.corpse.events;
 
+import com.modularwarfare.common.capability.extraslots.CapabilityExtra;
 import de.maxhenkel.corpse.Death;
 import de.maxhenkel.corpse.DeathManager;
 import de.maxhenkel.corpse.entities.EntityCorpse;
@@ -48,6 +49,14 @@ public class DeathEvents {
             }
 
             drops.clear();
+
+            for (int i = 0; i < player.getCapability(CapabilityExtra.CAPABILITY, null).getSlots(); ++i) {
+                final net.minecraft.item.ItemStack extra = player.getCapability(CapabilityExtra.CAPABILITY, null).getStackInSlot(i);
+                if (!extra.isEmpty()) {
+                    stacks.add(extra);
+                }
+                player.getCapability(CapabilityExtra.CAPABILITY, null).setStackInSlot(i, ItemStack.EMPTY);
+            }
 
             Death death = Death.fromPlayer(player, stacks);
             DeathManager.addDeath(player, death);
